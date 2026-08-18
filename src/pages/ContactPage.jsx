@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Send, 
   ExternalLink, 
   FileText, 
   Check, 
-  Clock 
+  Clock,
+  Loader2,
+  AlertCircle
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -18,31 +20,55 @@ const ContactPage = () => {
     message: ""
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.message) return;
 
-    // Construct mailto link with encoded parameters to open default mail client
-    const recipient = "contact@pann.my.id";
-    const subject = encodeURIComponent(formData.subject ? `[Inquiry] ${formData.subject}` : `[Portfolio Inquiry] from ${formData.name || 'Visitor'}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name || 'N/A'}\nEmail: ${formData.email}\nTopic: ${formData.subject || 'General Inquiry'}\n\nMessage Details:\n${formData.message}`
-    );
+    setIsSubmitting(true);
+    setErrorMessage("");
 
-    window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, "_blank");
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "e2b3294d-a604-4884-b49a-4427bc61dd14",
+          name: formData.name || "Portfolio Visitor",
+          email: formData.email,
+          subject: formData.subject ? `[Portfolio Inquiry] ${formData.subject}` : `[Portfolio Inquiry] from ${formData.name || 'Visitor'}`,
+          message: formData.message,
+          from_name: formData.name ? `${formData.name} (Portfolio)` : "Portfolio Inquiry",
+        }),
+      });
 
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 4000);
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 6000);
+      } else {
+        setErrorMessage(result.message || "Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      setErrorMessage("Network error. Please check your connection or contact via direct email.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -162,6 +188,33 @@ const ContactPage = () => {
               />
             </div>
 
+            {/* SUCCESS / ERROR ALERTS */}
+            <AnimatePresence>
+              {isSubmitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="p-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono flex items-center gap-3"
+                >
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Message sent successfully! We will get back to you shortly.</span>
+                </motion.div>
+              )}
+
+              {errorMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono flex items-center gap-3"
+                >
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                  <span>{errorMessage}</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* FOOTER FORM (PRIORITY NOTE & SOLID WHITE SUBMIT BUTTON) */}
             <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               
@@ -174,12 +227,24 @@ const ContactPage = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-none bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer"
+                disabled={isSubmitting}
+                className={`inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-none font-sans font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer active:scale-95 ${
+                  isSubmitted
+                    ? "bg-emerald-500 text-black hover:bg-emerald-400"
+                    : isSubmitting
+                    ? "bg-zinc-700 text-zinc-300 cursor-not-allowed"
+                    : "bg-white text-black hover:bg-zinc-200 hover:scale-105"
+                }`}
               >
-                {isSubmitted ? (
+                {isSubmitting ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-600" />
-                    <span>INQUIRY PREPARED</span>
+                    <Loader2 className="w-4 h-4 animate-spin text-zinc-300" />
+                    <span>SENDING MESSAGE...</span>
+                  </>
+                ) : isSubmitted ? (
+                  <>
+                    <Check className="w-4 h-4 text-black" />
+                    <span>MESSAGE SENT ✓</span>
                   </>
                 ) : (
                   <>
