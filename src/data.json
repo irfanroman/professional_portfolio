@@ -1,0 +1,297 @@
+{
+  "personal": {
+    "name": "Irfan Fahrurohman",
+    "roles": [
+      "UI/UX Designer",
+      "DevOps Engineer"
+    ],
+    "bio": "Designing seamless experiences & scaling systems with precision.",
+    "intro": "I bridge the gap between intuitive design and robust infrastructure, ensuring every pixel-perfect interface is backed by a scalable, reliable system.",
+    "email": "contact@pann.my.id",
+    "location": "Semarang, Jawa Tengah",
+    "cv_url": "/CV_Muhammad_Irfan_Fahrurohman.pdf",
+    "who_is_irfan": "UI/UX Designer and DevOps Engineer who focuses on building clean, user-centered interfaces alongside reliable and scalable systems.",
+    "terminal": {
+      "user": "irfan",
+      "hostname": "portfolio",
+      "shell": "zsh",
+      "commands": [
+        {
+          "input": "cat location.txt",
+          "output": "Semarang, Jawa Tengah"
+        },
+        {
+          "input": "cat skills.json | jq '.advanced'",
+          "output": "[\"Figma\", \"React\", \"Tailwind\"]"
+        },
+        {
+          "input": "echo $CURRENT_GOAL",
+          "output": "Building standardizing systems."
+        }
+      ]
+    },
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/irfanfahrurohmann/",
+      "github": "https://github.com/irfanroman",
+      "dribbble": "https://dribbble.com/nouudesign"
+    }
+  },
+  "career_journey": [
+    {
+      "id": "current",
+      "type": "Career",
+      "label": "Hosting.com",
+      "period": "2025 - Present",
+      "description": "Hosting Support Engineer ensuring uptime and customer success."
+    },
+    {
+      "id": "intern",
+      "type": "Internship",
+      "label": "Remote Worker Indonesia",
+      "period": "2024 - 2025",
+      "description": "Gaining real-world experience in remote collaboration and design."
+    },
+    {
+      "id": "smk",
+      "type": "Education",
+      "label": "SMK IDN Boarding School Solo",
+      "period": "2022 - 2025",
+      "description": "Specializing in technical foundations and design thinking."
+    },
+    {
+      "id": "smp",
+      "type": "Education",
+      "label": "SMP Al Izzah Batu",
+      "period": "2019 – 2022",
+      "description": "Foundational education in a holistic learning environment."
+    }
+  ],
+  "experience_projects": [
+    {
+      "id": "aisba",
+      "title": "AISBA School Website",
+      "description": "An integrated school website platform designed to support digital academic needs, school profiles, and online services for seamless communication."
+    },
+    {
+      "id": "rwid",
+      "title": "UI/UX Designer on RWID",
+      "description": "Crafting intuitive and user-centered design systems for the Remote Worker Indonesia platform."
+    }
+  ],
+  "tech_stack": [
+    {
+      "name": "Figma",
+      "icon": "figma"
+    },
+    {
+      "name": "Vercel",
+      "icon": "vercel"
+    },
+    {
+      "name": "React",
+      "icon": "react"
+    },
+    {
+      "name": "Docker",
+      "icon": "docker"
+    },
+    {
+      "name": "Cpanel",
+      "icon": "cpanel"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github"
+    },
+    {
+      "name": "Bootstrap",
+      "icon": "bootstrap"
+    },
+    {
+      "name": "Laravel",
+      "icon": "laravel"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "AISBA School Website",
+      "category": "Fullstack Dev",
+      "year": "2026",
+      "description": "An integrated school platform providing academic info, school profiles, and online services.",
+      "image": "https://aisba.sch.id/frontend/assets/image/hero_bg.png",
+      "size": "large",
+      "link": "https://aisba.sch.id"
+    },
+    {
+      "id": 2,
+      "title": "Dashboard Website",
+      "category": "Utilities",
+      "year": "2025",
+      "description": "A comprehensive administrative dashboard for managing and monitoring system operations.",
+      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1000",
+      "size": "medium",
+      "link": "https://dashboard.pann.my.id"
+    },
+    {
+      "id": 3,
+      "title": "Travel App",
+      "category": "UI/UX Designer",
+      "year": "2024",
+      "description": "Intuitive and engaging user interface design for a modern travel and exploration application.",
+      "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000",
+      "size": "medium",
+      "link": ""
+    }
+  ],
+  "extended_projects": [
+    {
+      "id": 1,
+      "title": "Minimalist Packaging",
+      "category": "Brand Identity",
+      "image": "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?q=80&w=1000"
+    },
+    {
+      "id": 2,
+      "title": "Eco-Friendly T-Shirt",
+      "category": "Product Design",
+      "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000"
+    },
+    {
+      "id": 3,
+      "title": "Dashboard Website",
+      "category": "Utilities",
+      "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=1000"
+    },
+    {
+      "id": 4,
+      "title": "AISBA School Website",
+      "category": "Fullstack Dev",
+      "image": "https://aisba.sch.id/frontend/assets/image/hero_bg.png"
+    },
+    {
+      "id": 5,
+      "title": "Fashion Editorial",
+      "category": "Photography",
+      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000"
+    },
+    {
+      "id": 6,
+      "title": "Organic Juice Branding",
+      "category": "Brand Identity",
+      "image": "https://images.unsplash.com/photo-1622597467825-f82876fb954a?q=80&w=1000"
+    }
+  ],
+  "projects_staging": [
+    {
+      "id": "proj-1",
+      "title": "AISBA School Platform",
+      "category": "Fullstack Dev",
+      "year": "2026",
+      "description": "An integrated academic platform engineered for digital education workflows, student profiles, and real-time announcements.",
+      "image": "https://aisba.sch.id/frontend/assets/image/hero_bg.png",
+      "link": "https://aisba.sch.id",
+      "tags": ["React", "Laravel", "Tailwind", "MySQL"],
+      "initialLikes": 42
+    },
+    {
+      "id": "proj-2",
+      "title": "RWID Design System",
+      "category": "UI/UX Design",
+      "year": "2025",
+      "description": "A comprehensive design system and component architecture crafted for remote collaboration and seamless product scalability.",
+      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800",
+      "link": "https://dribbble.com/nouudesign",
+      "tags": ["Figma", "Design Systems", "UI Kit", "Design Tokens"],
+      "initialLikes": 28
+    },
+    {
+      "id": "proj-3",
+      "title": "Gravipoint Cloud Architecture",
+      "category": "Utilities",
+      "year": "2025",
+      "description": "Automated cloud infrastructure, Dockerized microservice pipelines, and high-availability system orchestration.",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800",
+      "link": "https://github.com/irfanroman",
+      "tags": ["Docker", "Linux", "CI/CD", "cPanel"],
+      "initialLikes": 35
+    },
+    {
+      "id": "proj-4",
+      "title": "Travel App Exploration",
+      "category": "UI/UX Design",
+      "year": "2024",
+      "description": "Intuitive mobile interface designed for travel curation, itinerary booking, and immersive destination storytelling.",
+      "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800",
+      "link": "https://dribbble.com/nouudesign",
+      "tags": ["Mobile UI", "Figma", "User Research", "Prototyping"],
+      "initialLikes": 53
+    },
+    {
+      "id": "proj-5",
+      "title": "Aurel Vance Identity System",
+      "category": "Branding",
+      "year": "2025",
+      "description": "Minimalist brand identity, bespoke typography guidelines, and digital environment for a modern creative consultancy.",
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
+      "link": "#",
+      "tags": ["Branding", "Identity", "Art Direction", "Print & Web"],
+      "initialLikes": 39
+    },
+    {
+      "id": "proj-6",
+      "title": "Admin Analytics Dashboard",
+      "category": "Utilities",
+      "year": "2025",
+      "description": "Real-time administrative operations cockpit with latency monitoring, bandwidth telemetry, and security access controls.",
+      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800",
+      "link": "https://dashboard.pann.my.id",
+      "tags": ["React", "Charts", "Tailwind", "REST API"],
+      "initialLikes": 21
+    },
+    {
+      "id": "proj-7",
+      "title": "Monolith Editorial Environment",
+      "category": "Fullstack Dev",
+      "year": "2024",
+      "description": "Editorial digital publishing engine with markdown support, dynamic schema rendering, and sub-second page performance.",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
+      "link": "#",
+      "tags": ["Next.js", "Tailwind", "Markdown", "Vercel"],
+      "initialLikes": 31
+    },
+    {
+      "id": "proj-8",
+      "title": "Maxime Perrolle Campaign",
+      "category": "Branding",
+      "year": "2024",
+      "description": "Monochrome photography portfolio and editorial lookbook with high-contrast visual rhythm and fluid interactions.",
+      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800",
+      "link": "#",
+      "tags": ["Visual Design", "Typography", "Editorial", "Web Design"],
+      "initialLikes": 47
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "testi-1",
+      "name": "Fardan Hafidz",
+      "role": "Full-Stack Developer | Web & Mobile Apps | AI Automation",
+      "content": "Irfan is professional and great to work with. Highly recommend him for any projects",
+      "rating": 5
+    },
+    {
+      "id": "testi-2",
+      "name": "Kurt Schneider",
+      "content": "Big Dawg Irfan F knocked out an issue in lightning speed. Great service, would recommend.",
+      "rating": 5
+    },
+    {
+      "id": "testi-3",
+      "name": "David Chen",
+      "role": "Domain Specialist",
+      "content": "I use MIT as my registrar and host because I always have - since the early days of the web - trustworthy, reliable, efficient and compliant. Today I had an issue for a client's domain name renewals and MIT's consultant,  Irfan F and the backend team,  fixed it ... no hassles, just prompt efficiency. Thanks.",
+      "rating": 5
+    }
+  ]
+}
