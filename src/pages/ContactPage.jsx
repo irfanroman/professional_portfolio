@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Send, 
-  ExternalLink, 
-  FileText, 
-  Check, 
+import {
+  Send,
+  ExternalLink,
+  FileText,
+  Check,
   Clock,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  X,
+  CheckCircle2
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -37,6 +39,8 @@ const ContactPage = () => {
     setErrorMessage("");
 
     try {
+      const hCaptchaToken = document.querySelector('[name="h-captcha-response"]')?.value || "";
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -50,6 +54,7 @@ const ContactPage = () => {
           subject: formData.subject ? `[Portfolio Inquiry] ${formData.subject}` : `[Portfolio Inquiry] from ${formData.name || 'Visitor'}`,
           message: formData.message,
           from_name: formData.name ? `${formData.name} (Portfolio)` : "Portfolio Inquiry",
+          ...(hCaptchaToken ? { "h-captcha-response": hCaptchaToken } : {}),
         }),
       });
 
@@ -83,7 +88,7 @@ const ContactPage = () => {
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] portrait-rim-light rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full space-y-10 flex-1 flex flex-col justify-between mb-12">
-        
+
         {/* REUSABLE NAVBAR */}
         <Navbar />
 
@@ -106,13 +111,13 @@ const ContactPage = () => {
 
           {/* FORM FIELDS (UNDERLINE STYLE) */}
           <form onSubmit={handleSubmit} className="space-y-8">
-            
+
             {/* ROW 1: 2 COLUMNS (NAME & EMAIL) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               {/* Field 1: Name */}
               <div className="space-y-1">
-                <label 
-                  htmlFor="name" 
+                <label
+                  htmlFor="name"
                   className="text-[10.5px] sm:text-xs font-mono uppercase tracking-widest text-[#5c5c5a] block"
                 >
                   YOUR NAME
@@ -130,8 +135,8 @@ const ContactPage = () => {
 
               {/* Field 2: Email */}
               <div className="space-y-1">
-                <label 
-                  htmlFor="email" 
+                <label
+                  htmlFor="email"
                   className="text-[10.5px] sm:text-xs font-mono uppercase tracking-widest text-[#5c5c5a] block"
                 >
                   YOUR EMAIL <span className="text-zinc-400">*</span>
@@ -151,8 +156,8 @@ const ContactPage = () => {
 
             {/* ROW 2: FULL-WIDTH (SUBJECT / TOPIC) */}
             <div className="space-y-1">
-              <label 
-                htmlFor="subject" 
+              <label
+                htmlFor="subject"
                 className="text-[10.5px] sm:text-xs font-mono uppercase tracking-widest text-[#5c5c5a] block"
               >
                 SUBJECT / TOPIC
@@ -170,8 +175,8 @@ const ContactPage = () => {
 
             {/* ROW 3: FULL-WIDTH MULTI-LINE TEXTAREA (MESSAGE DETAILS) */}
             <div className="space-y-1">
-              <label 
-                htmlFor="message" 
+              <label
+                htmlFor="message"
                 className="text-[10.5px] sm:text-xs font-mono uppercase tracking-widest text-[#5c5c5a] block"
               >
                 MESSAGE DETAILS <span className="text-zinc-400">*</span>
@@ -215,9 +220,14 @@ const ContactPage = () => {
               )}
             </AnimatePresence>
 
+            {/* hCaptcha Widget Container */}
+            <div className="pt-2 flex items-center justify-start">
+              <div className="h-captcha" data-captcha="true" data-theme="dark"></div>
+            </div>
+
             {/* FOOTER FORM (PRIORITY NOTE & SOLID WHITE SUBMIT BUTTON) */}
             <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              
+
               {/* Priority Note */}
               <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 italic">
                 <Clock className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
@@ -228,13 +238,12 @@ const ContactPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-none font-sans font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer active:scale-95 ${
-                  isSubmitted
+                className={`inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-none font-sans font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(255,255,255,0.2)] cursor-pointer active:scale-95 ${isSubmitted
                     ? "bg-emerald-500 text-black hover:bg-emerald-400"
                     : isSubmitting
-                    ? "bg-zinc-700 text-zinc-300 cursor-not-allowed"
-                    : "bg-white text-black hover:bg-zinc-200 hover:scale-105"
-                }`}
+                      ? "bg-zinc-700 text-zinc-300 cursor-not-allowed"
+                      : "bg-white text-black hover:bg-zinc-200 hover:scale-105"
+                  }`}
               >
                 {isSubmitting ? (
                   <>
@@ -263,7 +272,7 @@ const ContactPage = () => {
 
           {/* SECTION: SOCIAL & CREDENTIALS */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            
+
             {/* Label */}
             <span className="text-[10.5px] sm:text-xs font-mono uppercase tracking-widest text-[#5c5c5a] font-semibold">
               SOCIAL & CREDENTIALS
