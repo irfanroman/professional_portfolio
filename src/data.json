@@ -129,7 +129,7 @@
       "category": "Utilities",
       "year": "2025",
       "description": "A comprehensive administrative dashboard for managing and monitoring system operations.",
-      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1000",
+      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1000&auto=format&fit=crop",
       "size": "medium",
       "link": "https://dashboard.pann.my.id"
     },
@@ -139,7 +139,7 @@
       "category": "UI/UX Designer",
       "year": "2024",
       "description": "Intuitive and engaging user interface design for a modern travel and exploration application.",
-      "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000",
+      "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000&auto=format&fit=crop",
       "size": "medium",
       "link": ""
     }
@@ -149,19 +149,19 @@
       "id": 1,
       "title": "Minimalist Packaging",
       "category": "Brand Identity",
-      "image": "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?q=80&w=1000"
+      "image": "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?q=80&w=1000&auto=format&fit=crop"
     },
     {
       "id": 2,
       "title": "Eco-Friendly T-Shirt",
       "category": "Product Design",
-      "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000"
+      "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop"
     },
     {
       "id": 3,
       "title": "Dashboard Website",
       "category": "Utilities",
-      "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=1000"
+      "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=1000&auto=format&fit=crop"
     },
     {
       "id": 4,
@@ -173,13 +173,13 @@
       "id": 5,
       "title": "Fashion Editorial",
       "category": "Photography",
-      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000"
+      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
     },
     {
       "id": 6,
       "title": "Organic Juice Branding",
       "category": "Brand Identity",
-      "image": "https://images.unsplash.com/photo-1622597467825-f82876fb954a?q=80&w=1000"
+      "image": "https://images.unsplash.com/photo-1622597467825-f82876fb954a?q=80&w=1000&auto=format&fit=crop"
     }
   ],
   "projects_staging": [
@@ -200,7 +200,7 @@
       "category": "UI/UX Design",
       "year": "2025",
       "description": "A comprehensive design system and component architecture crafted for remote collaboration and seamless product scalability.",
-      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800&auto=format&fit=crop",
       "link": "https://dribbble.com/nouudesign",
       "tags": ["Figma", "Design Systems", "UI Kit", "Design Tokens"],
       "initialLikes": 28
@@ -211,7 +211,7 @@
       "category": "Utilities",
       "year": "2025",
       "description": "Automated cloud infrastructure, Dockerized microservice pipelines, and high-availability system orchestration.",
-      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
       "link": "https://github.com/irfanroman",
       "tags": ["Docker", "Linux", "CI/CD", "cPanel"],
       "initialLikes": 35
@@ -222,7 +222,7 @@
       "category": "UI/UX Design",
       "year": "2024",
       "description": "Intuitive mobile interface designed for travel curation, itinerary booking, and immersive destination storytelling.",
-      "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop",
       "link": "https://dribbble.com/nouudesign",
       "tags": ["Mobile UI", "Figma", "User Research", "Prototyping"],
       "initialLikes": 53
@@ -233,7 +233,7 @@
       "category": "Branding",
       "year": "2025",
       "description": "Minimalist brand identity, bespoke typography guidelines, and digital environment for a modern creative consultancy.",
-      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
       "link": "#",
       "tags": ["Branding", "Identity", "Art Direction", "Print & Web"],
       "initialLikes": 39
@@ -244,7 +244,7 @@
       "category": "Utilities",
       "year": "2025",
       "description": "Real-time administrative operations cockpit with latency monitoring, bandwidth telemetry, and security access controls.",
-      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
       "link": "https://dashboard.pann.my.id",
       "tags": ["React", "Charts", "Tailwind", "REST API"],
       "initialLikes": 21
@@ -255,7 +255,7 @@
       "category": "Fullstack Dev",
       "year": "2024",
       "description": "Editorial digital publishing engine with markdown support, dynamic schema rendering, and sub-second page performance.",
-      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop",
       "link": "#",
       "tags": ["Next.js", "Tailwind", "Markdown", "Vercel"],
       "initialLikes": 31
@@ -266,7 +266,7 @@
       "category": "Branding",
       "year": "2024",
       "description": "Monochrome photography portfolio and editorial lookbook with high-contrast visual rhythm and fluid interactions.",
-      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800",
+      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop",
       "link": "#",
       "tags": ["Visual Design", "Typography", "Editorial", "Web Design"],
       "initialLikes": 47

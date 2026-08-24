@@ -12,6 +12,25 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+// Module-level singleton so remounting this page (SPA back/forward navigation)
+// never injects the hCaptcha <script> tag more than once.
+let hcaptchaScriptPromise = null;
+const loadHcaptchaScript = () => {
+  if (window.hcaptcha) return Promise.resolve();
+  if (!hcaptchaScriptPromise) {
+    hcaptchaScriptPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://js.hcaptcha.com/1/api.js?render=explicit";
+      script.async = true;
+      script.defer = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  }
+  return hcaptchaScriptPromise;
+};
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -27,8 +46,11 @@ const ContactPage = () => {
   const captchaContainerRef = useRef(null);
 
   useEffect(() => {
-    const renderCaptcha = () => {
-      if (window.hcaptcha && captchaContainerRef.current) {
+    let cancelled = false;
+
+    loadHcaptchaScript()
+      .then(() => {
+        if (cancelled || !window.hcaptcha || !captchaContainerRef.current) return;
         try {
           captchaContainerRef.current.innerHTML = "";
           window.hcaptcha.render(captchaContainerRef.current, {
@@ -44,19 +66,12 @@ const ContactPage = () => {
         } catch (e) {
           console.error("hCaptcha render error", e);
         }
-      }
-    };
+      })
+      .catch((e) => console.error("hCaptcha script load error", e));
 
-    if (!window.hcaptcha) {
-      const script = document.createElement("script");
-      script.src = "https://js.hcaptcha.com/1/api.js?render=explicit";
-      script.async = true;
-      script.defer = true;
-      script.onload = renderCaptcha;
-      document.body.appendChild(script);
-    } else {
-      renderCaptcha();
-    }
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleChange = (e) => {

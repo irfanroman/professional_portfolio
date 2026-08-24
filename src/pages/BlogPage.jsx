@@ -105,6 +105,8 @@ const FALLBACK_ARTICLES = [
 ];
 
 const ITEMS_PER_PAGE = 5;
+const RSS_CACHE_KEY = "portfolio-medium-articles-cache-v1";
+const RSS_CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes — avoids re-hitting the third-party API on every route revisit
 
 const ArticleListSkeleton = () => (
   <div className="space-y-4">
@@ -127,9 +129,25 @@ const BlogPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch real articles from Medium RSS feed with resilient fallback
+  // Fetch real articles from Medium RSS feed with resilient fallback.
+  // Cached in sessionStorage so navigating away and back doesn't re-hit the
+  // third-party API (and doesn't flash the loading skeleton again) within the TTL.
   useEffect(() => {
     let isMounted = true;
+
+    try {
+      const cached = sessionStorage.getItem(RSS_CACHE_KEY);
+      if (cached) {
+        const { articles: cachedArticles, cachedAt } = JSON.parse(cached);
+        if (Date.now() - cachedAt < RSS_CACHE_TTL_MS) {
+          setArticles(cachedArticles);
+          setLoading(false);
+          return;
+        }
+      }
+    } catch {
+      // Corrupt/inaccessible cache — fall through to a live fetch.
+    }
 
     const fetchMediumArticles = async () => {
       try {
@@ -139,23 +157,31 @@ const BlogPage = () => {
         const data = await response.json();
 
         if (isMounted) {
-          if (data && data.status === "ok" && data.items && data.items.length > 0) {
-            const parsed = data.items.map((item, idx) => {
-              const plainText = stripHtml(item.description || item.content || "");
-              return {
-                id: item.guid || `feed-${idx}`,
-                title: item.title || "Untitled Insight",
-                link: item.link || "https://medium.com/@pann.tech",
-                pubDate: item.pubDate || new Date().toISOString(),
-                excerpt: plainText.slice(0, 180).trim() + "...",
-                readTime: getReadTime(plainText),
-              };
-            });
-            setArticles(parsed);
-          } else {
-            setArticles(FALLBACK_ARTICLES);
-          }
+          const parsed =
+            data && data.status === "ok" && data.items && data.items.length > 0
+              ? data.items.map((item, idx) => {
+                  const plainText = stripHtml(item.description || item.content || "");
+                  return {
+                    id: item.guid || `feed-${idx}`,
+                    title: item.title || "Untitled Insight",
+                    link: item.link || "https://medium.com/@pann.tech",
+                    pubDate: item.pubDate || new Date().toISOString(),
+                    excerpt: plainText.slice(0, 180).trim() + "...",
+                    readTime: getReadTime(plainText),
+                  };
+                })
+              : FALLBACK_ARTICLES;
+
+          setArticles(parsed);
           setLoading(false);
+          try {
+            sessionStorage.setItem(
+              RSS_CACHE_KEY,
+              JSON.stringify({ articles: parsed, cachedAt: Date.now() })
+            );
+          } catch {
+            // Storage full/unavailable — non-critical, skip caching.
+          }
         }
       } catch (err) {
         if (isMounted) {

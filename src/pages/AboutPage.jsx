@@ -12,6 +12,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import irfanImg from "../img/Irfan.png";
+import irfanImgWebp from "../img/Irfan.webp";
 import verifiedImg from "../img/verified.png";
 import data from "../data.json";
 
@@ -30,14 +31,14 @@ const STARRED_PROJECTS = [
     id: "starred-2",
     title: "RWID Design System",
     category: "UI/UX Framework",
-    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=70&w=480&auto=format&fit=crop",
     link: "#",
   },
   {
     id: "starred-3",
     title: "Travel App Exploration",
     category: "UI/UX Design",
-    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=70&w=480&auto=format&fit=crop",
     link: "https://dribbble.com/nouudesign",
   },
 ];
@@ -81,11 +82,18 @@ const AboutPage = () => {
               {/* Circular Avatar Photo with Pure WHITE Background & Full Color Photo (ROUNDED-FULL) */}
               <div className="relative">
                 <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-white shrink-0">
-                  <img
-                    src={irfanImg}
-                    alt="Muhammad Irfan Fahrurohman"
-                    className="w-full h-full object-cover object-top filter grayscale-0 select-none"
-                  />
+                  <picture>
+                    <source srcSet={irfanImgWebp} type="image/webp" />
+                    <img
+                      src={irfanImg}
+                      alt="Muhammad Irfan Fahrurohman"
+                      width={112}
+                      height={112}
+                      loading="eager"
+                      decoding="async"
+                      className="w-full h-full object-cover object-top filter grayscale-0 select-none"
+                    />
+                  </picture>
                 </div>
               </div>
 
@@ -338,6 +346,8 @@ const AboutPage = () => {
                       <img
                         src={project.image}
                         alt={project.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
