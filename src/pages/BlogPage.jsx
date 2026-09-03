@@ -111,7 +111,12 @@ const RSS_CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes — avoids re-hitting the
 const ArticleListSkeleton = () => (
   <div className="space-y-4">
     {[1, 2, 3].map((n) => (
-      <div key={n} className="p-6 bg-[#121316] border border-white/[0.08] flex items-center justify-between gap-6 animate-pulse">
+      /* A directional sweep rather than an opacity pulse: a sweep reads as
+         "fetching", where a pulse reads as "stalled". */
+      <div
+        key={n}
+        className="skeleton-shimmer p-6 bg-[#121316] border border-white/[0.08] flex items-center justify-between gap-6"
+      >
         <div className="w-16 h-16 bg-white/[0.05] shrink-0" />
         <div className="flex-1 space-y-3">
           <div className="h-4 bg-white/[0.08] w-3/4" />

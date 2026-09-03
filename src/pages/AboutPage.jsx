@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
+import {
   ExternalLink, 
   MapPin,
   Clock,
@@ -127,7 +127,9 @@ const AboutPage = () => {
             </div>
 
             {/* 4-COLUMN STATS ROW (SHARP HERO EDITORIAL) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-none bg-white/[0.02] border border-white/[0.08] mb-8">
+            <div
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-none bg-white/[0.02] border border-white/[0.08] mb-8"
+            >
               
               {/* Stat 1: Current Status */}
               <div className="space-y-1">
@@ -248,7 +250,9 @@ const AboutPage = () => {
               </div>
 
               {/* SECTION 2: SUPPORT AVAILABILITY (SPACIOUS PADDING & AIRY GAP) */}
-              <div className="py-7 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+              <div
+                className="py-7 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-center"
+              >
                 <div className="md:col-span-8 space-y-1.5">
                   <h2 className="text-sm sm:text-base font-bold font-sans tracking-tight text-[#f3f2ef]">
                     Support Availability

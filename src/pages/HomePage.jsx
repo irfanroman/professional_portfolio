@@ -1,25 +1,62 @@
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { gsap, prefersReducedMotion } from "../lib/motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeroFilmStrip from "../components/HeroFilmStrip";
 import irfanImg from "../img/Irfan.png";
 import irfanImgWebp from "../img/Irfan.webp";
 
-const FILM_STRIP_SPEED = 0.2; // degrees per tick
+const FILM_STRIP_SPEED = 0.2; // degrees per tick — ~30s per full loop
+
+// Ambient parallax: the backdrop drifts *against* the cursor at low amplitude.
+// Counter-motion is what sells depth — matching the cursor would just look like
+// the whole page sliding.
+const RIM_LIGHT_TRAVEL = 26; // px at full deflection
+const PARALLAX_EASING = 0.06;
 
 const HomePage = () => {
   // Single shared rotation angle driven straight off GSAP's ticker (not React state),
   // so the back/front thumbnail layers read the exact same value every frame with
   // zero re-render overhead — that's what keeps the loop buttery instead of steppy.
   const angleRef = useRef(0);
+  const rimLightRef = useRef(null);
 
   useEffect(() => {
+    // The orbiting ribbon and drifting backdrop are ambient motion carrying no
+    // information, so both are suppressed entirely when the OS asks for less.
+    if (prefersReducedMotion()) return;
+
+    const pointer = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+    const handlePointerMove = (event) => {
+      // Normalised to -1..1 so the effect is resolution-independent.
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = (event.clientY / window.innerHeight) * 2 - 1;
+    };
+
     const tick = () => {
       angleRef.current = (angleRef.current + FILM_STRIP_SPEED) % 360;
+
+      if (isFinePointer && rimLightRef.current) {
+        current.x += (pointer.x - current.x) * PARALLAX_EASING;
+        current.y += (pointer.y - current.y) * PARALLAX_EASING;
+        rimLightRef.current.style.transform =
+          `translate3d(calc(-50% + ${-current.x * RIM_LIGHT_TRAVEL}px), ` +
+          `${-current.y * RIM_LIGHT_TRAVEL}px, 0)`;
+      }
     };
+
+    if (isFinePointer) {
+      window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    }
     gsap.ticker.add(tick);
-    return () => gsap.ticker.remove(tick);
+
+    return () => {
+      gsap.ticker.remove(tick);
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
   }, []);
 
   return (
@@ -30,8 +67,12 @@ const HomePage = () => {
       {/* Atmospheric Radial Charcoal Background */}
       <div className="fixed inset-0 ethan-charcoal-bg pointer-events-none" />
 
-      {/* Rim Light Backdrop Spotlight */}
-      <div className="fixed top-12 left-1/2 -translate-x-1/2 w-[800px] h-[800px] portrait-rim-light rounded-full pointer-events-none blur-3xl" />
+      {/* Rim Light Backdrop Spotlight — ambient parallax layer */}
+      <div
+        ref={rimLightRef}
+        className="fixed top-12 left-1/2 -translate-x-1/2 w-[800px] h-[800px] portrait-rim-light rounded-full pointer-events-none blur-3xl"
+        style={{ willChange: "transform" }}
+      />
 
       {/* MAIN CONTENT AREA */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-between pt-4 sm:pt-6">

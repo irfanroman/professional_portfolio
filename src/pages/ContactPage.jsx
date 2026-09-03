@@ -264,10 +264,11 @@ const ContactPage = () => {
 
               {errorMessage && (
                 <motion.div
+                  key={errorMessage}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono flex items-center gap-3"
+                  className="animate-error-shake p-4 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono flex items-center gap-3"
                 >
                   <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
                   <span>{errorMessage}</span>
@@ -301,22 +302,30 @@ const ContactPage = () => {
                     : "bg-white text-black hover:bg-zinc-200 hover:scale-105"
                 }`}
               >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin text-zinc-300" />
-                    <span>SENDING MESSAGE...</span>
-                  </>
-                ) : isSubmitted ? (
-                  <>
-                    <Check className="w-4 h-4 text-black" />
-                    <span>MESSAGE SENT ✓</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4 text-black" />
-                    <span>SUBMIT MESSAGE</span>
-                  </>
-                )}
+                {/* Keyed so each state swap remounts and replays the scale-in:
+                    the label transitions instead of teleporting, which keeps the
+                    button feeling like one object moving through states. */}
+                <span
+                  key={isSubmitting ? "sending" : isSubmitted ? "sent" : "idle"}
+                  className="animate-state-in inline-flex items-center justify-center gap-2.5"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-zinc-300" />
+                      <span>SENDING MESSAGE...</span>
+                    </>
+                  ) : isSubmitted ? (
+                    <>
+                      <Check className="w-4 h-4 text-black" />
+                      <span>MESSAGE SENT ✓</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 text-black" />
+                      <span>SUBMIT MESSAGE</span>
+                    </>
+                  )}
+                </span>
               </button>
 
             </div>
