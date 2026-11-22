@@ -11,6 +11,7 @@ const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
+const ReviewPage = lazy(() => import("./pages/ReviewPage"));
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/contact" element={<ContactPage />} />
+
+                {/* Hidden Direct-Link Routes */}
+                <Route path="/review" element={<ReviewPage />} />
 
                 {/* Legacy Staging Redirects & Compatibility */}
                 <Route path="/hero-staging" element={<Navigate to="/" replace />} />
