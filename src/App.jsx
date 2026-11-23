@@ -12,6 +12,7 @@ const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const ReviewPage = lazy(() => import("./pages/ReviewPage"));
+const CustomerReviewPage = lazy(() => import("./pages/CustomerReviewPage"));
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
 
                 {/* Hidden Direct-Link Routes */}
                 <Route path="/review" element={<ReviewPage />} />
+                <Route path="/customer-review" element={<CustomerReviewPage />} />
 
                 {/* Legacy Staging Redirects & Compatibility */}
                 <Route path="/hero-staging" element={<Navigate to="/" replace />} />

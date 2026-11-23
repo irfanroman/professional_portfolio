@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { submitCustomerReview } from "../lib/reviewsApi";
 
 const RATING_LABELS = {
   1: "Needs improvement",
@@ -105,10 +106,22 @@ const ReviewPage = () => {
     setIsSubmitting(true);
     setErrorMessage("");
 
+    const cleanName = formData.name.trim();
+    const cleanEmail = formData.email.trim();
+    const cleanReview = formData.review.trim();
     const starBar = `${"★".repeat(rating)}${"☆".repeat(5 - rating)}`;
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // 1. Save review to Supabase so it appears on /customer-review immediately
+      await submitCustomerReview({
+        name: cleanName,
+        email: cleanEmail,
+        rating,
+        review: cleanReview,
+      });
+
+      // 2. Also send email notification via Web3Forms (non-blocking if email relay fails)
+      fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -116,33 +129,28 @@ const ReviewPage = () => {
         },
         body: JSON.stringify({
           access_key: "57be467b-2c56-460d-a9ec-1045bc9a0451",
-          subject: `[Client Review] ${rating}/5 Stars from ${formData.name.trim()}`,
-          from_name: `${formData.name.trim()} (Client Review)`,
-          name: formData.name.trim(),
-          email: formData.email.trim(),
+          subject: `[Client Review] ${rating}/5 Stars from ${cleanName}`,
+          from_name: `${cleanName} (Client Review)`,
+          name: cleanName,
+          email: cleanEmail,
           rating: `${rating} / 5 (${starBar}) - ${RATING_LABELS[rating]}`,
-          review: formData.review.trim(),
+          review: cleanReview,
         }),
+      }).catch((err) => {
+        console.warn("Web3Forms email notification failed:", err);
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        setIsSubmitted(true);
-        setRating(0);
-        setHoveredRating(0);
-        setFormData({ name: "", email: "", review: "" });
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 7000);
-      } else {
-        setErrorMessage(
-          result.message || "Failed to submit review. Please try again."
-        );
-      }
-    } catch {
+      setIsSubmitted(true);
+      setRating(0);
+      setHoveredRating(0);
+      setFormData({ name: "", email: "", review: "" });
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 7000);
+    } catch (err) {
       setErrorMessage(
-        "Network error. Please check your connection and try submitting again."
+        err?.message ||
+          "Network error. Please check your connection and try submitting again."
       );
     } finally {
       setIsSubmitting(false);
